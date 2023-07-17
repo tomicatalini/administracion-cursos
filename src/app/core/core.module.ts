@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { MaterialModule } from '../shared/material/material.module';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { StudentsModule } from '../features/students/students.module';
 
 
 
@@ -13,7 +14,8 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    StudentsModule
   ],
   exports: [
     ToolbarComponent,
