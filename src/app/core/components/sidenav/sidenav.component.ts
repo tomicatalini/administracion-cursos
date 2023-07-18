@@ -1,5 +1,6 @@
-import { Component, Input  } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild  } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { MatSidenav } from '@angular/material/sidenav';
 
 interface Menu {
   icon: string,
@@ -20,15 +21,27 @@ const menues: Menu[] = [{
   templateUrl: './sidenav.component.html',
   styleUrls: ['./sidenav.component.scss']
 })
-export class SidenavComponent {
-  @Input()
-  sidenav_active = false;
+export class SidenavComponent implements OnInit {
+  
+  @Input() sidenav = false;
+  @Output() sidenavChange = new EventEmitter();
 
-  menuSelected: Menu = menues[0];
   small: boolean = false;
 
+  menuSelected: Menu = menues[0];
+
   constructor( private breakpoints: BreakpointObserver){
-    this.breakpoints.observe('(max-width: 750px)').subscribe( data => this.small = data.matches);
+    this.breakpoints
+    .observe('(max-width: 750px)')
+    .subscribe( data => {
+      this.small = data.matches;
+      this.sidenav = !this.sidenav;
+      this.sidenavChange.emit(this.sidenav);
+    });
+  }
+
+  ngOnInit(): void {
+    
   }
 
   changeMenu(menu: Menu): void{
